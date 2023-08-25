@@ -66,7 +66,7 @@
         
         <!-- Register buttons -->
         <div class="text-center">
-            <p>Already have an accound? <a href="/login">Login</a></p>
+            <p>Already have an accound? <a class="text-decoration-none" href="/login">Login</a></p>
         </div>
 
 </div>
