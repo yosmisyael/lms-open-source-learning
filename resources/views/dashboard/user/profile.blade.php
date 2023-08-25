@@ -27,24 +27,24 @@
             @foreach ($data->courses as $course)
                 @if ($course->pivot->is_completed === 1)
                     <div class="list-group">
-                        <form method="POST" action="/users/{{ $data->username }}/dashboard/courses/{{ $course->pivot->course_id }}/certificate" class="list-group-item list-group-item-action flex-column align-items-start" id="certificate-form-container">
+                        <form method="POST" action="/users/{{ $data->username }}/dashboard/courses/{{ $course->pivot->course_id }}/certificate" class="list-group-item list-group-item-action flex-column align-items-start certificate-form-container">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $course->pivot->user_id }}">
                             <input type="hidden" name="course_id" value="{{ $course->pivot->course_id }}">
                             <input type="hidden" name="name" value="{{ $data->name }}">
                             <input type="hidden" name="course" value="{{ $course->title }}">
-                            <input type="hidden" name="score" value="{{ $course->pivot->score }}"
+                            <input type="hidden" name="score" value="{{ $course->pivot->score }}">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ $course->title }}</h5>
                             </div>
-                            <button type="submit" id="hidden-submit" style="display: none;"></button>
+                            <button type="submit" class="hidden-submit" style="display: none;"></button>
                         </form>
                     </div>
                 @endif
             @endforeach
-        @else
-            <p>You have not yet finished any courses. To receive a certificate, complete the courses.</p>
-        @endif
+            @else
+                <p>You have not yet finished any courses. To receive a certificate, complete the courses.</p>
+            @endif
         </div>
     <div class="row py-4">
         <div class="col-md-12 d-flex justify-content-end border-right mx-auto">
@@ -53,10 +53,15 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('certificate-form-container').addEventListener('click', function() {
-                document.getElementById('hidden-submit').click();
+            const certificateForms = document.querySelectorAll('.certificate-form-container');
+            
+            certificateForms.forEach(form => {
+                form.addEventListener('click', function() {
+                    const hiddenSubmit = form.querySelector('.hidden-submit');
+                    hiddenSubmit.click();
+                });
             });
         });
-    </script>
+        </script>
 </div>
 @endsection
