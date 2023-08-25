@@ -74,13 +74,13 @@ Route::resource('/admin/dashboard/tests.questions', DashboardQuestionController:
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
 
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 
-Route::post('/register', [RegisterController::class, 'store']);
+Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
 
 Route::post('/enroll/{course_id}', [CourseEnrollmentController::class,'enroll']);
 
