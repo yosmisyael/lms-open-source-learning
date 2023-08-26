@@ -43,9 +43,14 @@ class DashboardCourseController extends Controller
             'image' => 'required|file|image|mimes:jpg,png,jpeg,webp|max:1024',
         ]);
 
-        if ($request->test_id === '') {
-            $validatedData['test_id'] = null;
+        if ($request->test_id) {
+            if ($request->test_id === '') {
+                $validatedData['test_id'] = null;
+            }
+
+            $validatedData['test_id'] = $request->test_id;
         }
+
 
         if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('course-pictures');
@@ -123,7 +128,7 @@ class DashboardCourseController extends Controller
             $validatedData['image'] = $request->file('image')->store('course-pictures');
         }
 
-        Course::where('id', $course->id)->update($validatedData);
+        $course->update($validatedData);
 
         return redirect('/admin/dashboard/courses')->with('success', 'Course has been updated!');
     }
@@ -145,7 +150,7 @@ class DashboardCourseController extends Controller
             return redirect('/admin/dashboard/courses')->with('danger', 'The course should have a unit test!');
         }        
         
-        $lessons_count = $course->lessons()->count();
+        $lessons_count = $course->lessons()->whereNotNull('order')->count();
 
         if ($lessons_count !== $course->total_lessons) {
             return redirect('/admin/dashboard/courses')->with('danger', 'The course should have complete lessons!');
@@ -165,7 +170,7 @@ class DashboardCourseController extends Controller
             Storage::delete($course->image);
         }
 
-        Course::destroy($course->id);
+        $course->delete();
         
         return redirect('/admin/dashboard/courses')->with('success', 'Test has been deleted!');
     }

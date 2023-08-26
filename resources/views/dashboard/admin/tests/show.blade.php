@@ -9,7 +9,9 @@
       </div>
     @endif
     <a href="/admin/dashboard/tests" class="btn btn-dark mb-3 fw-bolder"><i class="bi bi-arrow-left-square"></i> Back to Test List</a>
-    <a href="/admin/dashboard/tests/{{ $data->id }}/questions/create" class="btn btn-primary mb-3 fw-bolder"><i class="bi bi-plus"></i> Add Question</a>
+    @if (!$is_questions)
+      <a href="/admin/dashboard/tests/{{ $data->id }}/questions/create" class="btn btn-primary mb-3 fw-bolder"><i class="bi bi-plus"></i> Add Question</a>    
+    @endif
     <table class="table table-hover">
         <thead>
           <tr>
@@ -28,11 +30,11 @@
               <td>
                   <a href="/admin/dashboard/tests/{{ $data->id }}/questions/{{ $q->id }}" class="btn btn-primary"><i class="bi bi-eye-fill"></i> Show</a>
                   <a href="/admin/dashboard/tests/{{ $data->id }}/questions/{{ $q->id }}/edit" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</a>
-                  <form action="/admin/dashboard/tests/{{ $data->id }}/questions/{{ $q->id }}" class="d-inline" method="POST">
+                  {{-- <form action="/admin/dashboard/tests/{{ $data->id }}/questions/{{ $q->id }}" class="d-inline" method="POST">
                     @method('delete')
                     @csrf
                     <button class="btn btn-danger" onclick="return confirm('are you sure?')"><i class="bi bi-trash-fill"></i> Delete</button>
-                  </form>
+                  </form> --}}
               </td>
             </tr>
           @endforeach

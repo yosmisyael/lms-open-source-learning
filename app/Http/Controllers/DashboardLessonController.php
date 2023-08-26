@@ -41,10 +41,13 @@ class DashboardLessonController extends Controller
             'course_id' => 'required',
             'title' => 'required|min:3|max:255',
             'body' => 'required',
-            'order' => 'required'
         ]);
+        
+        if ($request->order && $request->order !== null) {
+            $validatedData['order'] = $request->order;
+        }
 
-        if ($request->order === '') {
+        if ($request->order === null) {
             $validatedData['order'] = null;
         }
 
@@ -96,27 +99,27 @@ class DashboardLessonController extends Controller
             'course_id' => 'required'
         ];
 
-        $lesson = Lesson::where('id', $lesson_id)->get()[0];
+        $lesson = Lesson::find($lesson_id);
 
-        if ($request->title !== $lesson['title']) {
+        if ($request->title !== $lesson->title) {
             $rules['title'] = 'required|min:3|max:255';
         }
         
-        if ($request->order !== $lesson['order']) {
+        if (($request->order !== $lesson->order) && $request->order !== null) {
             $rules['order'] = 'required';
         }
         
-        if ($request->body !== $lesson['body']) {
+        if ($request->body !== $lesson->body) {
             $rules['body'] = 'required';
         }
 
         $validatedData = $request->validate($rules);
 
-        if ($request->order === '') {
+        if ($request->order === null) {
             $validatedData['order'] = null;
         }
 
-        Lesson::where('id', $lesson_id)->update($validatedData);
+        $lesson->update($validatedData);
 
         return redirect('/admin/dashboard/courses/'.$course_id)->with('success', 'Lesson has been updated!');
     }
@@ -126,8 +129,17 @@ class DashboardLessonController extends Controller
      */
     public function destroy($course_id, $lesson_id)
     {
-        Lesson::destroy($lesson_id);
+        $lesson = Lesson::find($lesson_id);
 
-        return redirect('/admin/dashboard/courses/'.$course_id)->with('success', 'lesson has been deleted');
+        if ($lesson) {
+            if ($lesson->order === null) {
+                $lesson->delete();
+                return redirect('/admin/dashboard/courses/'.$course_id)->with('success', 'Lesson has been deleted.');
+            } else {
+                return redirect('/admin/dashboard/courses/'.$course_id)->with('error', 'Lesson with order cannot be deleted.');
+            }
+        } else {
+            return redirect('/admin/dashboard/courses/'.$course_id)->with('error', 'Lesson not found.');
+        }
     }
 }

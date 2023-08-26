@@ -1,5 +1,5 @@
 @extends('dashboard.user.layouts.main')
-
+{{-- @dd($lessons) --}}
 @section('container')
     <div class="container">
         <div class="row pb-5">
@@ -35,9 +35,8 @@
             {{-- lessons list --}}
             <h5 class="mt-3 mb-3 fw-bold" id="lessons-list">Lessons</h5>
             <div class="list-group">
-                @foreach ($lessons as $lesson)
+                @foreach ($lessons->sortBy('order') as $lesson)
                     <a href="/users/{{ auth()->user()->username }}/dashboard/courses/{{ $data->id }}/lesson/{{ $lesson->id }}" class="border border-primary justify-content-between d-flex list-group-item list-group-item-action list-group-item-secondary px-5 fw-bolder">{{ $lesson->title }} 
-                        {{-- <i class="text-primary fw-bolder bi bi-check2-circle"></i>     --}}
                     </a>
                 @endforeach
             </div>

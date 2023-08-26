@@ -52,7 +52,7 @@ class UserCourseController extends Controller
     {
         $course = Course::find($course_id);
 
-        $lessons = Lesson::where('course_id', $course_id)->get();
+        $lessons = Lesson::where('course_id', $course_id)->whereNotNull('order')->orderBy('order', 'desc')->get();
 
         $test = Test::find($course->test_id);
 

@@ -35,7 +35,8 @@ class DashboardTestController extends Controller
     {
         $validatedData = $request->validate([
             'name' => ['required', 'max:255'],
-            'min_score' => ['required', 'integer', 'min:0','max:100']
+            'min_score' => ['required', 'integer', 'min:0','max:100'],
+            'total_questions' => ['required', 'integer', 'min:0']
         ]);
 
         Test::create($validatedData);
@@ -48,10 +49,13 @@ class DashboardTestController extends Controller
      */
     public function show(Test $test): View
     {
-        return view('dashboard.admin.tests.show', [
-            'data' => $test,
-            'questions' => Questions::where('test_id', $test->id)->get(),
-        ]);
+        $data = $test;
+
+        $questions = Questions::where('test_id', $test->id)->get();
+
+        $is_questions = $questions->count() == $data->total_questions ? true : false;
+
+        return view('dashboard.admin.tests.show', compact('data', 'questions', 'is_questions'));
     }
 
     /**
@@ -76,7 +80,7 @@ class DashboardTestController extends Controller
         }
         
         if ($request->min_score != $test->min_score) {
-            $rules['name'] = ['required', 'integer', 'min:0', 'max:100'];
+            $rules['min_score'] = ['required', 'integer', 'min:0', 'max:100'];
         }
 
         $validatedData = $request->validate($rules);

@@ -2,6 +2,7 @@
 
 @section('container')
   <div class="container">
+    <a href="/admin/dashboard/tests/{{ $data->test_id }}" class="text-decoration-none"><i class="bi bi-arrow-left-square"></i> Back</a>
     <form action="">
       <h3 class="my-3">{{ $data->content }}</h3>
       @foreach (range(1, 4) as $i)

@@ -59,10 +59,25 @@ class Course extends Model
 
     protected static function booted()
     {
+        static::updated(function (Course $course) {
+
+            if ($course->isDirty('total_lessons')) {
+            
+                $newTotalLessons = $course->total_lessons;
+            
+                $course->lessons()->where('order', '>', $newTotalLessons)->update(['order' => null]);
+            }
+
+        });
+        
         static::deleting(function (Course $course) {
+
             $course->ratings()->detach();
+
             $course->users()->detach();
+
             $course->lessons()->delete();
+
         });
     }
 }

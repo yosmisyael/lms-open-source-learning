@@ -8,6 +8,12 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   @endif
+  @if (session()->has('error'))
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{ session('error') }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  @endif
   <a href="/admin/dashboard/courses" class="btn btn-dark mb-3 fw-bolder"><i class="bi bi-arrow-left-square"></i> Back to Course List</a>
   <a href="/admin/dashboard/courses/{{ $data->id }}/lesson/create" class="btn btn-primary mb-3 fw-bolder"><i class="bi bi-plus"></i> Add Lesson</a>
   <table class="table table-hover">

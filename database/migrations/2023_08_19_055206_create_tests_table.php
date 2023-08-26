@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->integer('total_questions');
             $table->integer('min_score');
             $table->timestamps();
         });
