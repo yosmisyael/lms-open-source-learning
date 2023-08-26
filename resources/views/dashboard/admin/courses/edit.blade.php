@@ -109,7 +109,7 @@
                 </div>
               @enderror
             </div>
-
+            <a href="/admin/dashboard/courses" class="btn btn-danger">Cancel</a>
             <button class="btn btn-primary" type="submit">Update Course</button>
         </form>
     </div>
