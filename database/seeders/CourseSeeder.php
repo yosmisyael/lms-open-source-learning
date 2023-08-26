@@ -612,7 +612,7 @@ class CourseSeeder extends Seeder
             <p>Our experienced instructors will guide you through real-world projects and use cases, helping you master complex concepts such as server-side rendering, code splitting, and lazy loading. You'll also explore techniques for optimizing performance, securing your Vue.js applications, and integrating third-party libraries.</p>
             <p>By the end of this course, you'll be equipped with the skills and knowledge to build sophisticated Vue.js applications that deliver seamless user experiences and leverage the full potential of this versatile front-end framework.</p>",
             'total_lessons' => 7,
-            'level' => 'beginner',
+            'level' => 'advanced',
             'image' => 'course-pictures/vue-cover-2.webp',
             'is_published' => 1
         ]);

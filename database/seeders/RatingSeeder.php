@@ -60,7 +60,7 @@ class RatingSeeder extends Seeder
             'user_id' => 2,
             'course_id' => 2,
             'rating' => 4,
-            'review' => "I'm truly impressed with the Vue.js fundamental course. The step-by-step approach, real-world examples, and interactive exercises made learning React.js enjoyable and practical."
+            'review' => "I'm truly impressed with the React js fundamental course. The step-by-step approach, real-world examples, and interactive exercises made learning React.js enjoyable and practical."
         ]);
         Rating::create([
             'user_id' => 3,
