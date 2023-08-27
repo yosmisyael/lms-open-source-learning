@@ -52,7 +52,7 @@ class DashboardTestController extends Controller
 
         $questions = Questions::where('test_id', $test->id)->get();
 
-        return view('dashboard.admin.tests.show', compact('data', 'questions', 'is_questions'));
+        return view('dashboard.admin.tests.show', compact('data', 'questions'));
     }
 
     /**
