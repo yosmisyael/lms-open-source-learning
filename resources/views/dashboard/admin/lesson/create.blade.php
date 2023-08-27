@@ -58,6 +58,7 @@
               <trix-editor input="body"></trix-editor>
             </div>
 
+            <a href="/admin/dashboard/courses/{{ $course_id }}" class="btn btn-danger">Cancel</a>
             <button class="btn btn-primary" type="submit">Add Lesson</button>
         </form>
     </div>

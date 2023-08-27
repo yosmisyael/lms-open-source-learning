@@ -36,6 +36,7 @@
                   </div>
                 @enderror
             </div>
+            <a href="/admin/dashboard/tests" class="btn btn-danger">Cancel</a>
             <button class="btn btn-primary">Create Test</button>
         </form>
     </div>

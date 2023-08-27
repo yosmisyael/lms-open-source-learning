@@ -59,6 +59,7 @@
               @enderror
             </div>
 
+            <a href="/users/{{ $data->username }}/dashboard/profile" class="btn btn-danger">Cancel</a>
             <button class="btn btn-primary" type="submit">Save Changes</button>
         </form>
     </div>

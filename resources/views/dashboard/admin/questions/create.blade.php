@@ -37,6 +37,7 @@
 
               <input type="hidden" name="answer" id="hidden_answer" value="">
 
+            <a href="/admin/dashboard/tests/{{ $test_id }}" class="btn btn-danger">Cancel</a>
             <button class="btn btn-primary" type="submit">Add Question</button>
         </form>
     </div>
