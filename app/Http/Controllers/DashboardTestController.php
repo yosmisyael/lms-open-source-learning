@@ -36,7 +36,6 @@ class DashboardTestController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'max:255'],
             'min_score' => ['required', 'integer', 'min:0','max:100'],
-            'total_questions' => ['required', 'integer', 'min:0']
         ]);
 
         Test::create($validatedData);
@@ -52,8 +51,6 @@ class DashboardTestController extends Controller
         $data = $test;
 
         $questions = Questions::where('test_id', $test->id)->get();
-
-        $is_questions = $questions->count() == $data->total_questions ? true : false;
 
         return view('dashboard.admin.tests.show', compact('data', 'questions', 'is_questions'));
     }
