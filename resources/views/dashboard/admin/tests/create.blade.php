@@ -23,20 +23,6 @@
                 @enderror
             </div>
             
-            {{-- total questions --}}
-            <div class="form-outline form-floating mb-4">
-                <input type="text" id="total_questions" name="total_questions" class="form-control form-control-lg @error('total_questions')
-                  is-invalid
-                @enderror"
-                  placeholder="Enter your name" required value="{{ old('min_score') }}" />
-                <label class="form-label" for="total_questions">Total Questions</label>
-                @error('total_questions')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                @enderror
-            </div>
-
             {{-- minimum test score --}}
             <div class="form-outline form-floating mb-4">
                 <input type="text" id="min_score" name="min_score" class="form-control form-control-lg @error('min_score')

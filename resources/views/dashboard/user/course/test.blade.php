@@ -9,7 +9,6 @@
             
             @foreach ($data as $question)
             <div class="card my-3" style="width: 100%;">
-                <input type="hidden" name="question_id" value="{{ $question->id }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ $question->content }}</h5>
                     @foreach (range(1, 4) as $option)

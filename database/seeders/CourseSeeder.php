@@ -20,7 +20,6 @@ class CourseSeeder extends Seeder
         $test = Test::create([
             'name' => 'Fundamental Vue JS Unit Test',
             'min_score' => 70,
-            'total_questions' => 10
         ]);
 
         // Question 1
@@ -190,7 +189,6 @@ class CourseSeeder extends Seeder
         $test = Test::create([
             'name' => 'Introduction to React JS Unit Test',
             'min_score' => 70,
-            'total_questions' => 10
         ]);
 
         Questions::create([
@@ -360,7 +358,6 @@ class CourseSeeder extends Seeder
         $test = Test::create([
             'name' => 'Laravel for Beginner Unit Test',
             'min_score' => 70,
-            'total_questions' => 10
         ]);
 
         Questions::create([
@@ -551,7 +548,6 @@ class CourseSeeder extends Seeder
         $test = Test::create([
             'name' => 'Advanced Vue JS',
             'min_score' => 80,
-            'total_questions' => 5 
         ]);
 
         Questions::create([

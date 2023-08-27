@@ -1,5 +1,5 @@
 @extends('dashboard.user.layouts.main')
-
+{{-- @dd($correct_answers, $submitted_answers) --}}
 @section('container')
     <div class="container">
         <a href="/users/{{ $username }}/dashboard/courses/{{ $course_id }}" class="text-decoration-none"><i class="bi bi-chevron-left"></i> Back</a>
@@ -18,19 +18,16 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($submited_answers as $index => $submited_answer)
-                @php
-                    $move_index = array_search(reset($submited_answers), $submited_answers);
-                @endphp
-                    <tr class="@if ($submited_answer !== $correct_answers[$index - $move_index])
+                @foreach ($submitted_answers as $index => $submitted_answer)
+                    <tr class="@if ($submitted_answer !== $correct_answers[$index])
                         table-danger
                     @else
                         table-success
                     @endif">
                         <th>{{ $loop->iteration }}</th>
                         <td>{{ $point }}</td>
-                        <td>{{ $submited_answer }}</td>
-                        <td>{{ $correct_answers[$index - $move_index] }}</td>
+                        <td>{{ $submitted_answer }}</td>
+                        <td>{{ $correct_answers[$index] }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -106,23 +106,23 @@ class UserCourseController extends Controller
 
         $min_score = $test->min_score;
 
-        $submited_answers = $request->answers;
+        $submitted_answers = $request->answers;
 
-        $correct_answers = Questions::where('test_id', $test_id)->pluck('answer')->toArray();
+        $correct_answers = Questions::where('test_id', $test_id)->pluck('answer', 'id')->toArray();
 
         $questions_total = count($correct_answers);
 
-        $result = $questions_total;
+        $correct_count = 0;
 
         $point = is_float(100 / $questions_total) ? number_format(100 / $questions_total, 2) : 100 / $questions_total;
 
-        foreach ($submited_answers as $index => $submited_answer) {
-            if (!in_array($submited_answer, $correct_answers)) {
-                $result -= 1;
+        foreach ($submitted_answers as $question_id => $submitted_answer) {
+            if (isset($correct_answers[$question_id]) && $correct_answers[$question_id] == $submitted_answer) {
+                $correct_count++;
             }
         }
 
-        $score = is_float($result * $point) ? round($result * $point) : $result * $point;
+        $score = is_float($correct_count * $point) ? round($correct_count * $point) : $correct_count * $point;
 
         $result_status = $score >= $min_score ? 'Congratulations! You have successfully passed the test.' : 'You have failed the test. Please review your answers and retake the test.';
 
@@ -137,6 +137,6 @@ class UserCourseController extends Controller
             ]);
         }
 
-        return view('dashboard.user.course.review', compact('submited_answers', 'correct_answers', 'test_name', 'username', 'course_id', 'result_status', 'score', 'point'));
+        return view('dashboard.user.course.review', compact('submitted_answers', 'correct_answers', 'test_name', 'username', 'course_id', 'result_status', 'score', 'point'));
     }
 }
