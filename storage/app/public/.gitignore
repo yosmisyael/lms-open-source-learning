@@ -1,3 +1,4 @@
-course-pictures
-user-pictures
+*
+course-pictures/
+user-pictures/
 !.gitignore
