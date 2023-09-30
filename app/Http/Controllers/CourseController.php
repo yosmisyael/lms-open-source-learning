@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -21,14 +22,19 @@ class CourseController extends Controller
 
     public function show($id)
     {
-        $course = Course::where('is_published', 1)->find($id);
+        try {
+            $course = Course::where('is_published', 1)->find($id);
 
-        $course_ratings = $course->ratings->filter(function ($rating) {
-            return $rating->pivot->rating >= 4;
-        })->take(3);
+            $course_ratings = $course->ratings->filter(function ($rating) {
+                return $rating->pivot->rating >= 4;
+            })->take(3);
 
-        $data = $course;
+            $data = $course;
 
-        return view('course', compact('data', 'course_ratings'));        
+            return view('course', compact('data', 'course_ratings'));   
+        } catch (ModelNotFoundException $e) {
+            return view('error');
+        }
+             
     }
 }
